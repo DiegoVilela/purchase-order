@@ -1,0 +1,9 @@
+AppBundle\Entity\User:
+    user0:
+        username: marie
+        plainPassword: 12345
+        roles: ['ROLE_ADMIN']
+
+    user1:
+        username: john
+        plainPassword: 12345
