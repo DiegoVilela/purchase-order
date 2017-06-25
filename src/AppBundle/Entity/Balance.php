@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="BalanceRepository")
- * @UniqueEntity(fields={"account", "order"})
+ * @UniqueEntity(fields={"account", "purchaseOrder"})
  */
 class Balance
 {
@@ -28,10 +28,10 @@ class Balance
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Order", inversedBy="balances")
+     * @ORM\ManyToOne(targetEntity="PurchaseOrder", inversedBy="balances")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $order;
+    private $purchaseOrder;
 
     /**
      * @ORM\Column(type="datetime")
@@ -39,11 +39,11 @@ class Balance
      */
     private $date;
 
-    public function __construct(float $amount, Account $account, Order $order)
+    public function __construct(float $amount, Account $account, PurchaseOrder $purchaseOrder)
     {
         $this->amount = $amount;
         $this->account = $account;
-        $this->order = $order;
+        $this->purchaseOrder = $purchaseOrder;
         $this->date = new \DateTime("now");
     }
 
@@ -77,13 +77,13 @@ class Balance
         return $this->account;
     }
 
-    public function setOrder(Order $order): void
+    public function setPurchaseOrder(PurchaseOrder $purchaseOrder): void
     {
-        $this->order = $order;
+        $this->purchaseOrder = $purchaseOrder;
     }
 
-    public function getOrder(): Order
+    public function getPurchaseOrder(): PurchaseOrder
     {
-        return $this->order;
+        return $this->purchaseOrder;
     }
 }

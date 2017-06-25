@@ -13,13 +13,13 @@ class BalanceRepository extends EntityRepository
     public function findAllByAccount(int $accountId): ?Collection
     {
         return $this->createQueryBuilder('b')
-            ->leftJoin('b.order', 'o')
-            ->leftJoin('o.supplier', 's')
-            ->addSelect('o')
+            ->leftJoin('b.purchaseOrder', 'po')
+            ->leftJoin('po.supplier', 's')
+            ->addSelect('po')
             ->addSelect('s')
             ->andWhere('b.account = :accountId')
             ->setParameter('accountId', $accountId)
-            ->addOrderBy('o.number', 'ASC')
+            ->addOrderBy('po.number', 'ASC')
             ->getQuery()
             ->execute();
     }
@@ -27,13 +27,13 @@ class BalanceRepository extends EntityRepository
     /**
      * @return Collection|Balance[]
      */
-    public function findAllByOrder(int $orderId): ?Collection
+    public function findAllByPurchaseOrder(int $purchaseOrderId): ?Collection
     {
         return $this->createQueryBuilder('b')
             ->leftJoin('b.account', 'a')
             ->addSelect('a')
-            ->andWhere('b.order = :id')
-            ->setParameter('id', $orderId)
+            ->andWhere('b.purchaseOrder = :id')
+            ->setParameter('id', $purchaseOrderId)
             ->addOrderBy('a.number', 'ASC')
             ->getQuery()
             ->execute();

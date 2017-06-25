@@ -28,13 +28,13 @@ class Section
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="section")
+     * @ORM\OneToMany(targetEntity="PurchaseOrder", mappedBy="section")
      */
-    private $orders = null;
+    private $purchaseOrders = null;
 
     public function __construct()
     {
-        $this->orders = new ArrayCollection();
+        $this->purchaseOrders = new ArrayCollection();
     }
 
     public function getId(): int
@@ -52,21 +52,21 @@ class Section
         return $this->name;
     }
 
-    public function addOrder(Order $order): void
+    public function addPurchaseOrder(PurchaseOrder $order): void
     {
-        $this->orders[] = $order;
+        $this->purchaseOrders[] = $order;
     }
 
-    public function removeOrder(Order $order): void
+    public function removePurchaseOrder(PurchaseOrder $order): void
     {
-        $this->orders->removeElement($order);
+        $this->purchaseOrders->removeElement($order);
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|PurchaseOrder[]
      */
-    public function getOrders(): Collection
+    public function getPurchaseOrders(): Collection
     {
-        return $this->orders;
+        return $this->purchaseOrders;
     }
 }

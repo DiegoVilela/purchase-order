@@ -9,10 +9,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="OrderRepository")
+ * @ORM\Entity(repositoryClass="PurchaseOrderRepository")
  * @UniqueEntity("number")
  */
-class Order
+class PurchaseOrder
 {
     const TYPE_ORDINARY = 'ordinary';
     const TYPE_ESTIMATED = 'estimated';
@@ -50,30 +50,30 @@ class Order
     private $editedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="purchaseOrders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $supplier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Section", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="purchaseOrders")
      * @ORM\JoinColumn(nullable=true)
      */
     private $section;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="purchaseOrders")
      * @ORM\JoinColumn(nullable=true)
      */
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity="Balance", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="Balance", mappedBy="purchaseOrder")
      */
     private $balances;
 
     /**
-     * @ORM\OneToMany(targetEntity="Situation", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="Situation", mappedBy="purchaseOrder")
      */
     private $situations = null;
 
@@ -138,7 +138,7 @@ class Order
 
     public function setSupplier(Supplier $supplier): void
     {
-        $supplier->addOrder($this);
+        $supplier->addPurchaseOrder($this);
         $this->supplier = $supplier;
     }
 
@@ -149,7 +149,7 @@ class Order
 
     public function setSection(Section $section): void
     {
-        $section->addOrder($this);
+        $section->addPurchaseOrder($this);
         $this->section = $section;
     }
 
@@ -160,7 +160,7 @@ class Order
 
     public function setOwner(User $owner): void
     {
-        $owner->addOrder($this);
+        $owner->addPurchaseOrder($this);
         $this->owner = $owner;
     }
 

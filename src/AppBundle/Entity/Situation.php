@@ -30,10 +30,10 @@ class Situation
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Order", inversedBy="situations")
+     * @ORM\ManyToOne(targetEntity="PurchaseOrder", inversedBy="situations")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $order;
+    private $purchaseOrder;
 
     /**
      * @ORM\Column(type="datetime")
@@ -79,15 +79,15 @@ class Situation
         $this->owner = $owner;
     }
 
-    public function getOrder(): Order
+    public function getPurchaseOrder(): PurchaseOrder
     {
-        return $this->order;
+        return $this->purchaseOrder;
     }
 
-    public function setOrder(Order $order): void
+    public function setPurchaseOrder(PurchaseOrder $purchaseOrder): void
     {
-        $order->addSituation($this);
-        $this->order = $order;
+        $purchaseOrder->addSituation($this);
+        $this->purchaseOrder = $purchaseOrder;
     }
 
     public function getCreatedAt(): \DateTimeInterface

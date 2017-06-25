@@ -51,9 +51,9 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="username")
+     * @ORM\OneToMany(targetEntity="PurchaseOrder", mappedBy="owner")
      */
-    private $orders;
+    private $purchaseOrders;
 
     /**
      * @ORM\OneToMany(targetEntity="Situation", mappedBy="owner")
@@ -62,7 +62,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->orders  = new ArrayCollection();
+        $this->purchaseOrders  = new ArrayCollection();
         $this->situations = new ArrayCollection();
     }
 
@@ -130,22 +130,22 @@ class User implements UserInterface
         $this->password = null;
     }
 
-    public function addOrder(Order $order): void
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): void
     {
-        $this->orders[] = $order;
+        $this->purchaseOrders[] = $purchaseOrder;
     }
 
-    public function removeOrder(Order $order)
+    public function removePurchaseOrder(PurchaseOrder $purchaseOrder)
     {
-        $this->orders->removeElement($order);
+        $this->purchaseOrders->removeElement($purchaseOrder);
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|PurchaseOrder[]
      */
-    public function getOrders(): Collection
+    public function getPurchaseOrders(): Collection
     {
-        return $this->orders;
+        return $this->purchaseOrders;
     }
 
     public function addSituation(Situation $situation): void
