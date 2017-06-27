@@ -39,6 +39,11 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - "bootstrap_3_layout.html.twig"
+    number_format:
+        decimals: 2
+    date:
+        format: 'd/m/Y H:i:s'
+        timezone: 'Pacific/Auckland'
 
 # Doctrine Configuration
 doctrine:

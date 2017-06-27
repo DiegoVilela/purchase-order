@@ -43,3 +43,8 @@ services:
         autowire: true
         tags:
             - { name: doctrine.event_subscriber }
+
+    app.utils.balances_manager:
+        class: AppBundle\Utils\BalancesManager
+        autowire: true
+        public: true
