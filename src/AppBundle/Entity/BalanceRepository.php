@@ -8,9 +8,9 @@ use Doctrine\ORM\EntityRepository;
 class BalanceRepository extends EntityRepository
 {
     /**
-     * @return Collection|Balance[]
+     * @return Balance[]
      */
-    public function findAllByAccount(int $accountId): ?Collection
+    public function findAllByAccount(int $accountId): array
     {
         return $this->createQueryBuilder('b')
             ->leftJoin('b.purchaseOrder', 'po')
@@ -25,9 +25,9 @@ class BalanceRepository extends EntityRepository
     }
 
     /**
-     * @return Collection|Balance[]
+     * @return Balance[]
      */
-    public function findAllByPurchaseOrder(int $purchaseOrderId): ?Collection
+    public function findAllByPurchaseOrder(int $purchaseOrderId): array
     {
         return $this->createQueryBuilder('b')
             ->leftJoin('b.account', 'a')

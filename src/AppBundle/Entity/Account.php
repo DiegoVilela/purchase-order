@@ -29,7 +29,7 @@ class Account
 
     /**
      * @ORM\Column(length=43, unique=TRUE)
-     * @Assert\Length(min=14, max=43)
+     * @Assert\Length(min=5, max=43)
      */
     private $name;
 
@@ -48,7 +48,7 @@ class Account
         return $this->id;
     }
 
-    public function setNumber(int $number): void
+    public function setNumber(int $number)
     {
         $this->number = $number;
     }
@@ -58,7 +58,7 @@ class Account
         return $this->number;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -68,12 +68,12 @@ class Account
         return $this->name;
     }
 
-    public function addBalance(Balance $balance): void
+    public function addBalance(Balance $balance)
     {
         $this->balances[] = $balance;
     }
 
-    public function removeBalance(Balance $balance): void
+    public function removeBalance(Balance $balance)
     {
         $this->balances->removeElement($balance);
     }

@@ -2,15 +2,15 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Ldap\Adapter\ExtLdap\Collection;
 
 class PurchaseOrderRepository extends EntityRepository
 {
     /**
-     * @return Collection|PurchaseOrder[]
+     * @return PurchaseOrder[]
      */
-    public function findAllWithSuppliers(bool $isSettled): ?Collection
+    public function findAllWithSuppliers(?bool $isSettled): array
     {
         $qb = $this->createQueryBuilder('po')
             ->leftJoin('po.supplier', 's')
@@ -38,9 +38,9 @@ class PurchaseOrderRepository extends EntityRepository
     }
 
     /**
-     * @return Collection|PurchaseOrder[]
+     * @return PurchaseOrder[]
      */
-    public function findAllWithBalances(): ?Collection
+    public function findAllWithBalances(): array
     {
         return $this->createQueryBuilder('po')
             ->innerJoin('po.balances', 'b')
