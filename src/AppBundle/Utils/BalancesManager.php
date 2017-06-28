@@ -71,14 +71,7 @@ class BalancesManager
      *
      * @var array
      */
-    private $purchaseOrdersWithBalanceIds;
-
-    /**
-     * Array with the ids of Purchase Orders without balance.
-     *
-     * @var array
-     */
-    private $purchaseOrdersWithoutBalanceIds;
+    private $idsPurchaseOrdersWithBalance = [];
 
     public function __construct(EntityManagerInterface $em, ValidatorInterface $validator)
     {
@@ -94,7 +87,7 @@ class BalancesManager
         $this->account = $this->getAccount();
         $this->balancesList = $this->getBalances();
 
-        $this->updateBalances();
+        $this->updateAllBalances();
 
         $this->deleteBalances();
 
@@ -152,7 +145,7 @@ class BalancesManager
         return $fileArray;
     }
 
-    private function updateBalances(): void
+    private function updateAllBalances(): void
     {
         $i = 19;
         while ($i < count($this->fileArray)) {
@@ -273,16 +266,16 @@ class BalancesManager
 
         // TODO array_diff
         foreach ($balances as $balance) {
-            if ( ! in_array($balance->getPurchaseOrder()->getId(), $this->purchaseOrdersWithBalanceIds)) {
-                $this->purchaseOrdersWithoutBalanceIds[] = $balance->getPurchaseOrder()->getId();
+            if ( ! in_array($balance->getPurchaseOrder()->getId(), $this->idsPurchaseOrdersWithBalance)) {
+                $idsPurchaseOrdersWithoutBalance[] = $balance->getPurchaseOrder()->getId();
             }
         }
 
-        if ( ! empty($this->purchaseOrdersWithoutBalanceIds)) {
+        if ( ! empty($idsPurchaseOrdersWithoutBalance)) {
             $qb = $this->em->createQueryBuilder();
 
             $and = $qb->expr()->andX();
-            $and->add($qb->expr()->in('b.purchaseOrder', $this->purchaseOrdersWithoutBalanceIds));
+            $and->add($qb->expr()->in('b.purchaseOrder', $idsPurchaseOrdersWithoutBalance));
             $and->add($qb->expr()->eq('b.account', $this->account->getId()));
 
             $qb->delete('AppBundle:Balance', 'b')
@@ -291,7 +284,7 @@ class BalancesManager
             $qb->getQuery()->execute();
         }
 
-        $this->purchaseOrdersWithBalanceIds = null;
+        $this->idsPurchaseOrdersWithBalance = [];
     }
 
     private function getPurchaseOrderNumber(int $row): ?string
@@ -350,16 +343,18 @@ class BalancesManager
             $this->insertNewBalance($amount, $purchaseOrder, $idFake);
         }
 
-        $this->purchaseOrdersWithBalanceIds[] = $purchaseOrder->getId();
+        $this->idsPurchaseOrdersWithBalance[] = $purchaseOrder->getId();
     }
 
     private function settlePurchaseOrders(): void
     {
         $settledPurchaseOrders = $this->getSettledPurchaseOrders();
 
-        foreach ($settledPurchaseOrders as $purchaseOrder) {
-            $purchaseOrder->settle();
-            $this->em->persist($purchaseOrder);
+        if (!$settledPurchaseOrders) {
+            foreach ($settledPurchaseOrders as $purchaseOrder) {
+                $purchaseOrder->settle();
+                $this->em->persist($purchaseOrder);
+            }
         }
 
         $this->em->flush();
