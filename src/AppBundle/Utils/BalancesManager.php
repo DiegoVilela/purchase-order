@@ -101,10 +101,9 @@ class BalancesManager
         $this->settlePurchaseOrders();
     }
 
-    public function exportAccount(Account $account)
+    public function exportAccount(Account $account): BinaryFileResponse
     {
-        /** @var Balance[] $balances */
-        $balances = $this->em->getRepository(Balance::class)
+        $balances = $this->em->getRepository('AppBundle:Balance')
             ->findAllByAccount($account->getId());
 
         $file = 'downloads'.DIRECTORY_SEPARATOR.$account->getNumber().'.csv';
@@ -177,18 +176,12 @@ class BalancesManager
         $this->em->flush();
     }
 
-    /**
-     * @return integer Número da account
-     */
-    private function getAccountNumero()
+    private function getAccountNumber(): ?int
     {
         return (integer) substr($this->fileArray[6], 18, 9);
     }
 
-    /**
-     * @return string Nome da account
-     */
-    private function getAccountNome()
+    private function getAccountName(): ?string
     {
         return trim(substr($this->fileArray[17], 29, 43));
     }
@@ -198,8 +191,8 @@ class BalancesManager
      */
     private function getAccount(): Account
     {
-        $number = $this->getAccountNumero();
-        $name = $this->getAccountNome();
+        $number = $this->getAccountNumber();
+        $name = $this->getAccountName();
 
         $account = $this->em->getRepository('AppBundle:Account')
             ->findOneBy(['number' => $number]);
@@ -271,13 +264,12 @@ class BalancesManager
     }
 
     /**
-     * Delete the balances of Purchase Orders that are not in the text file anymore.
+     * Delete the balances of Purchase Orders which are not in the text file anymore.
      */
     private function deleteBalances(): void
     {
         /** @var Balance[] $balances */
-        $balances = $this->em->getRepository('AppBundle:Balance')
-            ->findBy(['account' => $this->account]);
+        $balances = $this->em->getRepository('AppBundle:Balance')->findBy(['account' => $this->account]);
 
         // TODO array_diff
         foreach ($balances as $balance) {
@@ -374,16 +366,14 @@ class BalancesManager
     }
 
     /**
-     * @return array|PurchaseOrder[]
+     * @return PurchaseOrder[]
      */
     private function getSettledPurchaseOrders(): ?array
     {
-        $allPurchaseOrders = $this->em->getRepository(PurchaseOrder::class)
+        $allPurchaseOrders = $this->em->getRepository('AppBundle:PurchaseOrder')
             ->findAllWithBalances();
 
-        /** @var PurchaseOrder $purchaseOrder */
         foreach ($allPurchaseOrders as $purchaseOrder) {
-            /** @var Balance $balance */
             foreach ($purchaseOrder->getBalances() as $balance) {
                 if (in_array($balance->getAccount()->getNumber(),
                     self::ACCOUNTS_WITH_BALANCE_TO_BE_SETTLED)) {
