@@ -261,15 +261,14 @@ class BalancesManager
      */
     private function deleteBalances(): void
     {
-        /** @var Balance[] $balances */
-        $balances = $this->em->getRepository('AppBundle:Balance')->findBy(['account' => $this->account]);
+        $outdatedIdsPurchaseOrders = array_map(function ($balance) {
+            return $balance->getPurchaseOrder()->getId();
+        }, $this->balancesList);
 
-        // TODO array_diff
-        foreach ($balances as $balance) {
-            if ( ! in_array($balance->getPurchaseOrder()->getId(), $this->idsPurchaseOrdersWithBalance)) {
-                $idsPurchaseOrdersWithoutBalance[] = $balance->getPurchaseOrder()->getId();
-            }
-        }
+        $idsPurchaseOrdersWithoutBalance = array_diff(
+            $outdatedIdsPurchaseOrders,
+            $this->idsPurchaseOrdersWithBalance
+        );
 
         if ( ! empty($idsPurchaseOrdersWithoutBalance)) {
             $qb = $this->em->createQueryBuilder();
