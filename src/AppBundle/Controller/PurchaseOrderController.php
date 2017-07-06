@@ -51,7 +51,7 @@ class PurchaseOrderController extends Controller
      */
     public function accountExportAction(Account $account)
     {
-        return $this->get('balances_manager')->exportAccount($account);
+        return $this->get('app.utils.balances_manager')->exportAccount($account);
     }
 
     /**

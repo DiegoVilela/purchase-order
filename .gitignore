@@ -19,3 +19,6 @@
 /vendor/
 /web/bundles/
 /.idea/
+/web/downloads/*
+!/web/downloads
+!web/downloads/.gitkeep

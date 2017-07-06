@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class responsible for update balances
+ * Class responsible for updating balances
  *
  * @author Diego Vilela <vilelaphp@gmail.com>
  */

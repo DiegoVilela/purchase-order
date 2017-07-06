@@ -2,14 +2,14 @@
 
 ## Problem
 
-An organisation needs to control its orders to each supplier. Some orders have an employee responsible for controlling the deliveries. The orders are registered in the official government financial system, which does not implement any API. The only way to access the data is downloading a text file that contains all information of an account.
+An organisation needs to control its purchase orders to each supplier. Some purchase orders have an employee responsible for controlling the deliveries. The purchase orders are registered in the official government financial system, which does not implement any API. The only way to access the data is downloading a text file that contains all information of an account.
 The employees responsible for controlling the orders need a centralised place to search for the orders they are responsible for and add comments about the deliveries.
 
 ## Solution
 
-1. A user uploads the text file with the **balances** of all **orders** in an **account**.
-2. The system processes the text file and updates the **balances** of each **order** in their respective **accounts**.
-3. Users can easily search for **orders**, **suppliers** or **accounts** via the system interface and download all information in a CVS file format.
+1. A user uploads the text file with the **balances** of all **purchase orders** in an **account**.
+2. The system processes the text file and updates the **balances** of each **purchase order** in their respective **accounts**.
+3. Users can easily search for **purchase orders**, **suppliers** or **accounts** via the system interface and download all information in a CVS file format.
 
 ### Accounts
 
