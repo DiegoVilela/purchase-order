@@ -1,0 +1,31 @@
+
+
+
+
+
+
+                  631400000
+
+
+
+
+
+
+
+
+
+
+                             ORDERS PAID
+
+NE2016NE900101
+COMPANY ABC S.A.                                              2,000,101.11
+NE2016NE900102
+COMPANY ABC S.A.                                              2,000,102.22
+NE2016NE900103
+COMPANY ABC S.A.                                              2,000,103.33
+NE2016NE900104
+COMPANY ABC S.A.                                              2,000,104.44
+NE2016NE900105
+COMPANY ABC S.A.                                              2,000,105.55
+NE2016NE900106
+SMITH & WHITE LTD                                                 6,718.40

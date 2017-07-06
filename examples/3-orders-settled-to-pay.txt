@@ -1,0 +1,29 @@
+
+
+
+
+
+
+                  631300000
+
+
+
+
+
+
+
+
+
+
+                             ORDERS SETTLED TO PAY
+
+NE2016NE900101
+COMPANY ABC S.A.                                                 97,500.00
+NE2016NE900102
+COMPANY ABC S.A.                                                 96,040.00
+NE2016NE900104
+COMPANY ABC S.A.                                                 95,003.00
+NE2016NE900105
+COMPANY ABC S.A.                                                 94,000.10
+NE2016NE900106
+SMITH & WHITE LTD                                                    56.07
