@@ -6,11 +6,11 @@ use AppBundle\Entity\Account;
 use AppBundle\Entity\Balance;
 use AppBundle\Entity\PurchaseOrder;
 use AppBundle\Entity\Supplier;
+use AppBundle\Utils\BalancesManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -127,7 +127,7 @@ class PurchaseOrderController extends Controller
      * @Route("/update", name="update")
      * @Method({"GET", "POST"})
      */
-    public function updateAction(Request $request)
+    public function updateAction(Request $request, BalancesManager $balancesManager)
     {
         # http://symfony.com/doc/current/form/without_class.html
         $form = $this->createFormBuilder(array());
@@ -139,7 +139,6 @@ class PurchaseOrderController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $balancesManager = $this->get('app.utils.balances_manager');
 
             foreach ($form->getData() as $file) {
                 if (!empty($file)) {

@@ -28,7 +28,7 @@ security:
 
             guard:
                 authenticators:
-                    - app.security.login_form_authenticator
+                    - AppBundle\Security\LoginFormAuthenticator
 
             logout:
                 path: /logout
