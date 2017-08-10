@@ -10,7 +10,7 @@ class PurchaseOrderRepository extends EntityRepository
     /**
      * @return PurchaseOrder[]
      */
-    public function findAllWithSuppliers(?bool $isSettled): array
+    public function findAllWithSuppliers($isSettled = false)
     {
         $qb = $this->createQueryBuilder('po')
             ->leftJoin('po.supplier', 's')
@@ -26,7 +26,7 @@ class PurchaseOrderRepository extends EntityRepository
             ->execute();
     }
 
-    public function findOneById(int $purchaseOrderId): ?PurchaseOrder
+    public function findOneById(int $purchaseOrderId)
     {
         return $this->createQueryBuilder('po')
             ->leftJoin('po.supplier', 's')
@@ -40,7 +40,7 @@ class PurchaseOrderRepository extends EntityRepository
     /**
      * @return PurchaseOrder[]
      */
-    public function findAllWithBalances(): array
+    public function findAllWithBalances()
     {
         return $this->createQueryBuilder('po')
             ->innerJoin('po.balances', 'b')

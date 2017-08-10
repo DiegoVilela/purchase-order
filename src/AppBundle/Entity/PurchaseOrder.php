@@ -91,37 +91,37 @@ class PurchaseOrder
         return $this->id;
     }
 
-    public function setNumber(string $number): void
+    public function setNumber(string $number)
     {
         $this->number = $number;
     }
 
-    public function getNumber(): string
+    public function getNumber()
     {
         return $this->number;
     }
 
-    public function setType(string $type): void
+    public function setType(string $type)
     {
         $this->type = $type;
     }
 
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
 
-    public function isSettled(): bool
+    public function isSettled()
     {
         return $this->settled;
     }
 
-    public function settle(): void
+    public function settle()
     {
         $this->settled = true;
     }
 
-    public function undoSettle(): void
+    public function undoSettle()
     {
         $this->settled = false;
     }
@@ -136,40 +136,40 @@ class PurchaseOrder
         return $this->editedAt;
     }
 
-    public function setSupplier(Supplier $supplier): void
+    public function setSupplier(Supplier $supplier)
     {
         $supplier->addPurchaseOrder($this);
         $this->supplier = $supplier;
     }
 
-    public function getSupplier(): Supplier
+    public function getSupplier()
     {
         return $this->supplier;
     }
 
-    public function setSection(Section $section): void
+    public function setSection(Section $section)
     {
         $section->addPurchaseOrder($this);
         $this->section = $section;
     }
 
-    public function getSection(): Section
+    public function getSection()
     {
         return $this->section;
     }
 
-    public function setOwner(User $owner): void
+    public function setOwner(User $owner)
     {
         $owner->addPurchaseOrder($this);
         $this->owner = $owner;
     }
 
-    public function getOwner(): User
+    public function getOwner()
     {
         return $this->owner;
     }
 
-    public function addBalance(Balance $balance): void
+    public function addBalance(Balance $balance)
     {
         $this->balances[] = $balance;
     }
@@ -182,12 +182,12 @@ class PurchaseOrder
     /**
      * @return Collection|Balance[]
      */
-    public function getBalances(): Collection
+    public function getBalances()
     {
         return $this->balances;
     }
 
-    public function addSituation(Situation $situation): void
+    public function addSituation(Situation $situation)
     {
         $this->situations[] = $situation;
     }
@@ -200,12 +200,12 @@ class PurchaseOrder
     /**
      * @return Collection|Situation[]
      */
-    public function getSituations(): Collection
+    public function getSituations()
     {
         return $this->situations;
     }
 
-    public function __toString(): string
+    public function __toString()
     {
         return $this->number;
     }

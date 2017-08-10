@@ -81,7 +81,7 @@ class BalancesManager
         $this->purchaseOrdersList = $this->getPurchaseOrders();
     }
 
-    public function processFile(UploadedFile $txtFile): void
+    public function processFile(UploadedFile $txtFile)
     {
         $this->fileArray = $this->txtToArray($txtFile);
         $this->account = $this->getAccount();
@@ -94,7 +94,7 @@ class BalancesManager
         $this->settlePurchaseOrders();
     }
 
-    public function exportAccount(Account $account): BinaryFileResponse
+    public function exportAccount(Account $account)
     {
         $balances = $this->em->getRepository('AppBundle:Balance')
             ->findAllByAccount($account->getId());
@@ -127,7 +127,7 @@ class BalancesManager
      * @throws UploadException
      * @throws FileException
      */
-    private function txtToArray(UploadedFile $txtFile): array
+    private function txtToArray(UploadedFile $txtFile)
     {
         if ($txtFile->getError() > 0) {
             throw new UploadException($txtFile->getErrorMessage());
@@ -145,7 +145,7 @@ class BalancesManager
         return $fileArray;
     }
 
-    private function updateAllBalances(): void
+    private function updateAllBalances()
     {
         $i = 19;
         while ($i < count($this->fileArray)) {
@@ -169,12 +169,12 @@ class BalancesManager
         $this->em->flush();
     }
 
-    private function getAccountNumber(): ?int
+    private function getAccountNumber()
     {
         return (integer) substr($this->fileArray[6], 18, 9);
     }
 
-    private function getAccountName(): ?string
+    private function getAccountName()
     {
         return trim(substr($this->fileArray[17], 29, 43));
     }
@@ -182,7 +182,7 @@ class BalancesManager
     /**
      * @throws Exception
      */
-    private function getAccount(): Account
+    private function getAccount()
     {
         $number = $this->getAccountNumber();
         $name = $this->getAccountName();
@@ -212,7 +212,7 @@ class BalancesManager
     /**
      * @return Supplier[]
      */
-    private function getSuppliers(): array
+    private function getSuppliers()
     {
         $suppliers = $this->em->getRepository('AppBundle:Supplier')->findAll();
 
@@ -227,7 +227,7 @@ class BalancesManager
     /**
      * @return PurchaseOrder[]
      */
-    private function getPurchaseOrders(): array
+    private function getPurchaseOrders()
     {
         $purchaseOrders = $this->em->getRepository('AppBundle:PurchaseOrder')->findAll();
 
@@ -242,7 +242,7 @@ class BalancesManager
     /**
      * @return Balance[]
      */
-    private function getBalances(): array
+    private function getBalances()
     {
         /** @var Balance[] $balances */
         $balances = $this->em->getRepository('AppBundle:Balance')->findBy(['account' => $this->account]);
@@ -259,7 +259,7 @@ class BalancesManager
     /**
      * Delete the balances of Purchase Orders which are not in the text file anymore.
      */
-    private function deleteBalances(): void
+    private function deleteBalances()
     {
         $outdatedIdsPurchaseOrders = array_map(function ($balance) {
             return $balance->getPurchaseOrder()->getId();
@@ -286,12 +286,12 @@ class BalancesManager
         $this->idsPurchaseOrdersWithBalance = [];
     }
 
-    private function getPurchaseOrderNumber(int $row): ?string
+    private function getPurchaseOrderNumber(int $row)
     {
         return trim(substr($this->fileArray[$row], 2, 12));
     }
 
-    private function getSupplierName(int $row): ?string
+    private function getSupplierName(int $row)
     {
         return trim(substr($this->fileArray[$row], 0, 51));
     }
@@ -299,7 +299,7 @@ class BalancesManager
     /**
      * @throws Exception
      */
-    private function getBalanceAmount(int $row): ?float
+    private function getBalanceAmount(int $row)
     {
         $amount = trim(substr($this->fileArray[$row], 60, 14));
         $amount = str_replace(',', '', $amount);
@@ -311,7 +311,7 @@ class BalancesManager
         return $amount;
     }
 
-    private function getSupplier(string $name): Supplier
+    private function getSupplier(string $name)
     {
         if (array_key_exists($name, $this->suppliersList)) {
             return $this->suppliersList[$name];
@@ -320,7 +320,7 @@ class BalancesManager
         }
     }
 
-    private function getPurchaseOrder(string $number, Supplier $supplier, float $balanceAmount): PurchaseOrder
+    private function getPurchaseOrder(string $number, Supplier $supplier, float $balanceAmount)
     {
         if (array_key_exists($number, $this->purchaseOrdersList)) {
             return $this->purchaseOrdersList[$number];
@@ -329,7 +329,7 @@ class BalancesManager
         }
     }
 
-    private function updateBalance(float $amount, PurchaseOrder $purchaseOrder, string $idFake): void
+    private function updateBalance(float $amount, PurchaseOrder $purchaseOrder, string $idFake)
     {
         if (array_key_exists($idFake, $this->balancesList)) {
             $balance = $this->balancesList[$idFake];
@@ -345,7 +345,7 @@ class BalancesManager
         $this->idsPurchaseOrdersWithBalance[] = $purchaseOrder->getId();
     }
 
-    private function settlePurchaseOrders(): void
+    private function settlePurchaseOrders()
     {
         $settledPurchaseOrders = $this->getSettledPurchaseOrders();
 
@@ -362,7 +362,7 @@ class BalancesManager
     /**
      * @return PurchaseOrder[]
      */
-    private function getSettledPurchaseOrders(): ?array
+    private function getSettledPurchaseOrders()
     {
         $allPurchaseOrders = $this->em->getRepository('AppBundle:PurchaseOrder')
             ->findAllWithBalances();
@@ -384,7 +384,7 @@ class BalancesManager
         return null;
     }
 
-    private function insertNewBalance(float $amount, PurchaseOrder $purchaseOrder, string $idFake): void
+    private function insertNewBalance(float $amount, PurchaseOrder $purchaseOrder, string $idFake)
     {
         $balance = new Balance($amount, $this->account, $purchaseOrder);
         $purchaseOrder->addBalance($balance);
@@ -399,7 +399,7 @@ class BalancesManager
     /**
      * @throws Exception
      */
-    private function getNewSupplier(string $name): Supplier
+    private function getNewSupplier(string $name)
     {
         $supplier = new Supplier($name);
 
@@ -419,7 +419,7 @@ class BalancesManager
         return $supplier;
     }
 
-    private function getNewPurchaseOrder(string $number, Supplier $supplier, float $balanceAmount): PurchaseOrder
+    private function getNewPurchaseOrder(string $number, Supplier $supplier, float $balanceAmount)
     {
         $purchaseOrder = new PurchaseOrder($number, $supplier);
         $balance   = new Balance($balanceAmount, $this->account, $purchaseOrder);

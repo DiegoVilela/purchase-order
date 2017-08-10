@@ -47,17 +47,17 @@ class Balance
         $this->date = new \DateTime("now");
     }
 
-    public function setAmount(float $amount): void
+    public function setAmount(float $amount)
     {
         $this->amount = $amount;
     }
 
-    public function getAmount(): float
+    public function getAmount()
     {
         return $this->amount;
     }
 
-    public function setDate(\DateTimeInterface $date): void
+    public function setDate(\DateTimeInterface $date)
     {
         $this->date = $date;
     }
@@ -67,22 +67,22 @@ class Balance
         return $this->date;
     }
 
-    public function setAccount(Account $account): void
+    public function setAccount(Account $account)
     {
         $this->account = $account;
     }
 
-    public function getAccount(): Account
+    public function getAccount()
     {
         return $this->account;
     }
 
-    public function setPurchaseOrder(PurchaseOrder $purchaseOrder): void
+    public function setPurchaseOrder(PurchaseOrder $purchaseOrder)
     {
         $this->purchaseOrder = $purchaseOrder;
     }
 
-    public function getPurchaseOrder(): PurchaseOrder
+    public function getPurchaseOrder()
     {
         return $this->purchaseOrder;
     }

@@ -49,9 +49,9 @@ class PurchaseOrderController extends Controller
      * @Route("/account/{id}/export", name="account_export")
      * @Method("GET")
      */
-    public function accountExportAction(Account $account)
+    public function accountExportAction(Account $account, BalancesManager $balancesManager)
     {
-        return $this->get('app.utils.balances_manager')->exportAccount($account);
+        return $balancesManager->exportAccount($account);
     }
 
     /**

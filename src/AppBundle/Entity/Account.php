@@ -43,7 +43,7 @@ class Account
         $this->balances = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
@@ -53,7 +53,7 @@ class Account
         $this->number = $number;
     }
 
-    public function getNumber(): int
+    public function getNumber()
     {
         return $this->number;
     }
@@ -63,7 +63,7 @@ class Account
         $this->name = $name;
     }
 
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -81,7 +81,7 @@ class Account
     /**
      * @return Collection|Balance[]
      */
-    public function getBalances(): Collection
+    public function getBalances()
     {
         return $this->balances;
     }

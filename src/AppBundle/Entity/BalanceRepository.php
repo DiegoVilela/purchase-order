@@ -10,7 +10,7 @@ class BalanceRepository extends EntityRepository
     /**
      * @return Balance[]
      */
-    public function findAllByAccount(int $accountId): array
+    public function findAllByAccount(int $accountId)
     {
         return $this->createQueryBuilder('b')
             ->leftJoin('b.purchaseOrder', 'po')
@@ -27,7 +27,7 @@ class BalanceRepository extends EntityRepository
     /**
      * @return Balance[]
      */
-    public function findAllByPurchaseOrder(int $purchaseOrderId): array
+    public function findAllByPurchaseOrder(int $purchaseOrderId)
     {
         return $this->createQueryBuilder('b')
             ->leftJoin('b.account', 'a')

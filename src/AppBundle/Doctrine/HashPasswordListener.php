@@ -47,7 +47,7 @@ class HashPasswordListener implements EventSubscriber
         $em->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    private function encryptPassword(User $entity): void
+    private function encryptPassword(User $entity)
     {
         if (!$entity->getPlainPassword()) {
             return;
