@@ -53,59 +53,59 @@ class Situation
         $this->editedAt = $this->createdAt;
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
 
-    public function getOwner(): User
+    public function getOwner()
     {
         return $this->owner;
     }
 
-    public function setOwner(User $owner): void
+    public function setOwner(User $owner)
     {
         $owner->addSituation($this);
         $this->owner = $owner;
     }
 
-    public function getPurchaseOrder(): PurchaseOrder
+    public function getPurchaseOrder()
     {
         return $this->purchaseOrder;
     }
 
-    public function setPurchaseOrder(PurchaseOrder $purchaseOrder): void
+    public function setPurchaseOrder(PurchaseOrder $purchaseOrder)
     {
         $purchaseOrder->addSituation($this);
         $this->purchaseOrder = $purchaseOrder;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
-    public function getEditedAt(): \DateTimeInterface
+    public function getEditedAt()
     {
         return $this->editedAt;
     }
 
-    public function setEditedAt(\DateTime $editedAt): void
+    public function setEditedAt(\DateTime $editedAt)
     {
         $this->editedAt = $editedAt;
     }

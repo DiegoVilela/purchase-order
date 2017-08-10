@@ -39,22 +39,22 @@ class Supplier
         $this->purchaseOrders = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): void
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder)
     {
         $this->purchaseOrders[] = $purchaseOrder;
     }
@@ -67,7 +67,7 @@ class Supplier
     /**
      * @return Collection|PurchaseOrder[]
      */
-    public function getPurchaseOrders(): Collection
+    public function getPurchaseOrders()
     {
         return $this->purchaseOrders;
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -37,27 +38,27 @@ class Section
         $this->purchaseOrders = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function addPurchaseOrder(PurchaseOrder $order): void
+    public function addPurchaseOrder(PurchaseOrder $order)
     {
         $this->purchaseOrders[] = $order;
     }
 
-    public function removePurchaseOrder(PurchaseOrder $order): void
+    public function removePurchaseOrder(PurchaseOrder $order)
     {
         $this->purchaseOrders->removeElement($order);
     }
@@ -65,7 +66,7 @@ class Section
     /**
      * @return Collection|PurchaseOrder[]
      */
-    public function getPurchaseOrders(): Collection
+    public function getPurchaseOrders()
     {
         return $this->purchaseOrders;
     }

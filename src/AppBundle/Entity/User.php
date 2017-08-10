@@ -66,12 +66,12 @@ class User implements UserInterface
         $this->situations = new ArrayCollection();
     }
 
-    public function getUsername(): string
+    public function getUsername()
     {
         return $this->username;
     }
 
-    public function getRoles(): array
+    public function getRoles()
     {
         $roles = $this->roles;
 
@@ -82,7 +82,7 @@ class User implements UserInterface
         return $roles;
     }
 
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -92,7 +92,7 @@ class User implements UserInterface
         // leaving blank - I don't need/have a password!
     }
 
-    public function eraseCredentials(): void
+    public function eraseCredentials()
     {
         $this->plainPassword = null;
     }
@@ -102,27 +102,27 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function setUser(string $username): void
+    public function setUser(string $username)
     {
         $this->username = $username;
     }
 
-    public function setPassword(string $password): void
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
 
-    public function setRoles(array $roles): void
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword): void
+    public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
         // forces the object to look "dirty" to Doctrine. Avoids
@@ -130,7 +130,7 @@ class User implements UserInterface
         $this->password = null;
     }
 
-    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): void
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder)
     {
         $this->purchaseOrders[] = $purchaseOrder;
     }
@@ -143,17 +143,17 @@ class User implements UserInterface
     /**
      * @return Collection|PurchaseOrder[]
      */
-    public function getPurchaseOrders(): Collection
+    public function getPurchaseOrders()
     {
         return $this->purchaseOrders;
     }
 
-    public function addSituation(Situation $situation): void
+    public function addSituation(Situation $situation)
     {
         $this->situations[] = $situation;
     }
 
-    public function removeSituation(Situation $situation): void
+    public function removeSituation(Situation $situation)
     {
         $this->situations->removeElement($situation);
     }
@@ -161,7 +161,7 @@ class User implements UserInterface
     /**
      * @return Collection|Situation[]
      */
-    public function getSituations(): Collection
+    public function getSituations()
     {
         return $this->situations;
     }
